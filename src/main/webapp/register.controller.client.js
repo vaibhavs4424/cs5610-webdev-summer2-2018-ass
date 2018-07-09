@@ -8,6 +8,16 @@
   var password2Fld = $('#password2');
 
   registerBtn.click(registerHandler);
+  
+  function registrationSuccessful()
+  {
+	  alert('Yay');
+  };
+  
+  function registrationFailed()
+  {
+	  alert('Oops');
+  };
 
   function registerHandler() {
     var usernameStr = usernameFld.val();
@@ -21,13 +31,14 @@
 
     var userObjStr = JSON.stringify(userObj);
     console.log(userObjStr);
+    
     fetch('/register', {
       method: 'post',
       body: userObjStr,
       headers: {
         'Content-Type': 'application/json'
       }
-    });
+    }).then(registrationSuccessful,registrationFailed);
 
   }
 })();
