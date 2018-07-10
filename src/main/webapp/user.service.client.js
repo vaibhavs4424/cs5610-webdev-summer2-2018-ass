@@ -22,20 +22,23 @@ function AdminUserServiceClient() {
 	}
 
 	function updateUser(userId, user) {
-		return fetch(self.url + '/' + userId, {
-			method : 'put',
-			body : JSON.stringify(user),
-			headers : {
-				'content-type' : 'application/json'
-			}
-		}).then(function(response) {
-			if (response.bodyUsed) {
-				return response.json();
-			} else {
-				return null;
-			}
-		});
-	}
+        return fetch(self.url+'/'+userId, {
+            method : 'put',
+            body: JSON.stringify(user),
+            headers: {
+                'content-type': 'application/json'
+            },
+            credentials: "same-origin"
+        }).then(function (response) {
+            if(response.bodyUsed){
+                return response.json();
+            }
+
+            return null;
+
+        });
+
+    }
 
 	function findUserById(userId) {
 		return fetch(self.url + '/' + userId).then(function(response) {

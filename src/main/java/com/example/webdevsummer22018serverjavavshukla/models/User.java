@@ -16,10 +16,20 @@ public class User {
 	private String password;
 	private String firstName;
 	private String lastName;
+	private String role;
+	
+
 	private String phone;
 	private String email;
 	private Date dob;
 
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
 	public String getPhone() {
 		return phone;
 	}

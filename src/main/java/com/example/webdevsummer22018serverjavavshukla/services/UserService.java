@@ -52,7 +52,26 @@ public class UserService {
 		Optional<User> data = userRepository.findById(userId);
 		if(data.isPresent()) {
 			User user = data.get();
-			user.setFirstName(newUser.getFirstName());
+			if (newUser.getUsername() != null)
+				user.setUsername(newUser.getUsername());
+
+			if (newUser.getFirstName() != null)
+				user.setFirstName(newUser.getFirstName());
+
+			if (newUser.getLastName() != null)
+				user.setLastName(newUser.getLastName());
+
+			if (newUser.getRole() != null)
+				user.setRole(newUser.getRole());
+
+			if (newUser.getEmail() != null)
+				user.setEmail(newUser.getEmail());
+
+			if (newUser.getPhone() != null)
+				user.setPhone(newUser.getPhone());
+
+			if (newUser.getDob() != null)
+				user.setDob(newUser.getDob());
 			userRepository.save(user);
 			return user;
 		}
