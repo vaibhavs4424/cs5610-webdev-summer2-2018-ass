@@ -27,6 +27,6 @@
        if(response.status==422)
          alert('Invalid credentials!');
       else if(response.status==200)
-         window.location.href="profile.template.client.html";
+         window.location.href="../profile/profile.template.client.html";
     }
 })();
