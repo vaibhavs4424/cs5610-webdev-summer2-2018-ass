@@ -1,49 +1,60 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>Registration Page</title>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="register.style.client.css" >
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <title>Register</title>
+
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+
+    <script src="user.service.client.js"></script>
+    <script src="register.controller.client.js"></script>
+
+</head>
     <body>
+    <div class="container">
         <h1>Register</h1>
+        <form>
+            <div class="form-group row">
+                <label for="username" class="col-sm-2 col-form-label">
+                    Username </label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="username" placeholder="Alice">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="password" class="col-sm-2 col-form-label">
+                    Password </label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control login-pwd"
+                           id="password" placeholder="alice&^%4">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="password" class="col-sm-2 col-form-label">
+                    Verify Password </label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control login-pwd"
+                           id="vpassword" placeholder="alice&^%4">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <button type="button" id="registerBtn" class="btn btn-primary btn-block">Sign Up</button>
+                        <div class="col-6">
+                            <a href="login.template.client.html" class="float-right">Sign In</a>
 
-        <div>
-            <label for="username">
-                Username
-            </label>
-            <input type="text"
-                   placeholder="alice"
-                   id="username"/>
-        </div>
+                        </div>
+                </div>
+            </div>
 
-        <div>
-            <label for="password">
-                Password
-            </label>
-            <input type="password"
-                   placeholder="1234qwerasdf"
-                   id="password"/>
-        </div>
 
-        <div>
-            <label for="password2">
-                Validate Password
-            </label>
-            <input type="password"
-                   placeholder="1234qwerasdf"
-                   id="password2"/>
-        </div>
-        <button id="registerBtn">
-            Register
-        </button>
-        <a href="login.template.client.html">
-            Login
-        </a>
-
-        <script
-                src="https://code.jquery.com/jquery-3.3.1.min.js"
-                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-                crossorigin="anonymous"></script>
-
-        <script src="register.controller.client.js"></script>
-
+        </form>
+    </div>
     </body>
 </html>
