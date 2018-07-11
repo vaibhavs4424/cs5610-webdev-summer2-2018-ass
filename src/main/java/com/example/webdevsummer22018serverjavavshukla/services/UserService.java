@@ -20,48 +20,96 @@ import com.example.webdevsummer22018serverjavavshukla.repositories.UserRepositor
 
 @RestController
 public class UserService {
-	
+
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@PostMapping("/register")
 	public User register(@RequestBody User user) {
 		return userRepository.save(user);
 	}
 	
+	@GetMapping("/api/profile")
+	public User profile(HttpSession session) {
+		User u=  (User) session.getAttribute("currentUser");
+		return u;
+		
+	}
+
+	@PutMapping("/api/profile")
+	public User updateProfile(@RequestBody User newUser, HttpSession session) {
+		User u = (User) session.getAttribute("currentUser");
+		int userId = u.getId();
+
+		Optional<User> data = userRepository.findById(userId);
+		if (data.isPresent()) {
+			User user = data.get();
+			if (newUser.getUsername() != null)
+				user.setUsername(newUser.getUsername());
+
+			if (newUser.getFirstName() != null)
+				user.setFirstName(newUser.getFirstName());
+
+			if (newUser.getLastName() != null)
+				user.setLastName(newUser.getLastName());
+
+			if (newUser.getRole() != null)
+				user.setRole(newUser.getRole());
+
+			if (newUser.getEmail() != null)
+				user.setEmail(newUser.getEmail());
+
+			if (newUser.getPhone() != null)
+				user.setPhone(newUser.getPhone());
+
+			if (newUser.getDob() != null)
+				user.setDob(newUser.getDob());
+			userRepository.save(user);
+			return user;
+		}
+		return null;
+
+	}
 	
+	@PostMapping("/api/logout")
+	public User login(HttpSession session) { 
+		User u = (User) session.getAttribute("currentUser");
+		session.invalidate();
+		return u;
+	}
+
+
 	@DeleteMapping("/api/user/{userId}")
 	public void deleteUser(@PathVariable("userId") int id) {
 		userRepository.deleteById(id);
 	}
-	
+
 	@PostMapping("/api/user")
 	public User createUser(@RequestBody User user) {
 		return userRepository.save(user);
 	}
-	
+
 	@PostMapping("/api/login")
-	public User login(@RequestBody User user, HttpSession session,HttpServletResponse response) {
+	public User login(@RequestBody User user, HttpSession session, HttpServletResponse response) {
 		User cUser = (User) userRepository.findUserByCredential(user.getUsername(), user.getPassword());
-		if(cUser!=null)
-		{
+		if (cUser != null) {
 			session.setAttribute("currentUser", cUser);
-			
+
 			return cUser;
 		}
 		response.setStatus(422);
 		return null;
 	}
-	
+
 	@GetMapping("/api/user")
 	public List<User> findAllUsers() {
 		return (List<User>) userRepository.findAll();
 	}
-	
+
 	@PutMapping("/api/user/{userId}")
 	public User updateUser(@PathVariable("userId") int userId, @RequestBody User newUser) {
 		Optional<User> data = userRepository.findById(userId);
-		if(data.isPresent()) {
+		if (data.isPresent()) {
 			User user = data.get();
 			if (newUser.getUsername() != null)
 				user.setUsername(newUser.getUsername());
@@ -88,15 +136,14 @@ public class UserService {
 		}
 		return null;
 	}
-	
+
 	@GetMapping("/api/user/{userId}")
 	public User findUserById(@PathVariable("userId") int userId) {
 		Optional<User> data = userRepository.findById(userId);
-		if(data.isPresent()) {
+		if (data.isPresent()) {
 			return data.get();
 		}
 		return null;
 	}
 
-	
 }
