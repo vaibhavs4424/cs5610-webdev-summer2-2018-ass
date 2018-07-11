@@ -3,6 +3,9 @@ package com.example.webdevsummer22018serverjavavshukla.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,8 +41,16 @@ public class UserService {
 	}
 	
 	@PostMapping("/api/login")
-	public List<User> login(@RequestBody User user) {
-		return (List<User>) userRepository.findUserByCredentials(user.getUsername(), user.getPassword());
+	public User login(@RequestBody User user, HttpSession session,HttpServletResponse response) {
+		User cUser = (User) userRepository.findUserByCredential(user.getUsername(), user.getPassword());
+		if(cUser!=null)
+		{
+			session.setAttribute("currentUser", cUser);
+			
+			return cUser;
+		}
+		response.setStatus(422);
+		return null;
 	}
 	
 	@GetMapping("/api/user")
