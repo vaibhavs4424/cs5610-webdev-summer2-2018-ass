@@ -28,12 +28,12 @@ public class UserService {
 	public User register(@RequestBody User user) {
 		return userRepository.save(user);
 	}
-	
+
 	@GetMapping("/api/profile")
 	public User profile(HttpSession session) {
-		User u=  (User) session.getAttribute("currentUser");
+		User u = (User) session.getAttribute("currentUser");
 		return u;
-		
+
 	}
 
 	@PutMapping("/api/profile")
@@ -42,6 +42,7 @@ public class UserService {
 		int userId = u.getId();
 
 		Optional<User> data = userRepository.findById(userId);
+		System.out.println("Today's Date: " + newUser.getDob());
 		if (data.isPresent()) {
 			User user = data.get();
 			if (newUser.getUsername() != null)
@@ -70,14 +71,13 @@ public class UserService {
 		return null;
 
 	}
-	
+
 	@PostMapping("/api/logout")
-	public User login(HttpSession session) { 
+	public User login(HttpSession session) {
 		User u = (User) session.getAttribute("currentUser");
 		session.invalidate();
 		return u;
 	}
-
 
 	@DeleteMapping("/api/user/{userId}")
 	public void deleteUser(@PathVariable("userId") int id) {

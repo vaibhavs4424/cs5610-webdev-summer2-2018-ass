@@ -1,50 +1,52 @@
 // IIFE
 // Immediately Invoked Function Expression
-(function () {
+(function() {
 
-  var $registerBtn;
-  var usernameFld;
-  var passwordFld ;
-  var password2Fld;
-  $(main);
+	var $registerBtn;
+	var usernameFld;
+	var passwordFld;
+	var password2Fld;
+	var userService = new AdminUserServiceClient();
+	$(main);
 
-    function main() {
-         $registerBtn = $('#registerBtn');
-         usernameFld = $('#username');
-         passwordFld = $('#password');
-         password2Fld = $('#vpassword');
-        $("#registerBtn").click(registerHandler);
-    }
-  
-  function registrationSuccessful()
-  {
-	  alert('Registered Successfully!');
-  };
-  
-  function registrationFailed()
-  {
-	  alert('Oops! Try again.');
-  };
+	function main() {
+		$registerBtn = $('#registerBtn');
+		usernameFld = $('#username');
+		passwordFld = $('#password');
+		password2Fld = $('#vpassword');
+		$("#registerBtn").click(registerHandler);
+	}
 
-  function registerHandler() {
-    var usernameStr = usernameFld.val();
-    var passwordStr = passwordFld.val();
+	function registrationSuccessful() {
+		alert('Registered Successfully!');
+	}
+	;
 
-    var userObj = {
-      username: usernameStr,
-      password: passwordStr
-    };
+	function registrationFailed() {
+		alert('Oops! Try again.');
+	}
+	;
 
-    var userObjStr = JSON.stringify(userObj);
-    console.log(userObjStr);
-    
-    fetch('/register', {
-      method: 'post',
-      body: userObjStr,
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then(registrationSuccessful,registrationFailed);
+	function registerHandler() {
+		var usernameStr = usernameFld.val();
+		var passwordStr = passwordFld.val();
+		var password2Str = password2Fld.val();
 
-  }
+		if (passwordStr != password2Str) {
+			alert('Password and Verify Password do not match!');
+			return;
+		}
+
+		var userObj = {
+			username : usernameStr,
+			password : passwordStr
+		};
+
+		var userObjStr = JSON.stringify(userObj);
+		console.log(userObjStr);
+
+		userService.register(userObjStr).then(registrationSuccessful,
+				registrationFailed);
+
+	}
 })();

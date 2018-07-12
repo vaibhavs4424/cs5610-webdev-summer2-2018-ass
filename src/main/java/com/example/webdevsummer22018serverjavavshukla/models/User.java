@@ -1,6 +1,6 @@
 package com.example.webdevsummer22018serverjavavshukla.models;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +17,6 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private String role;
-	
 
 	private String phone;
 	private String email;
@@ -30,6 +29,7 @@ public class User {
 	public void setRole(String role) {
 		this.role = role;
 	}
+
 	public String getPhone() {
 		return phone;
 	}

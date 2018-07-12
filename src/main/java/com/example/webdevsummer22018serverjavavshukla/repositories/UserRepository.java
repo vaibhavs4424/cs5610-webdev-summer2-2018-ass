@@ -9,7 +9,5 @@ import com.example.webdevsummer22018serverjavavshukla.models.User;
 public interface UserRepository extends CrudRepository<User, Integer> {
 
 	@Query("SELECT u FROM User u WHERE u.username=:username AND u.password=:password")
-	User findUserByCredential(
-		@Param("username") String username, 
-		@Param("password") String password);
+	User findUserByCredential(@Param("username") String username, @Param("password") String password);
 }
